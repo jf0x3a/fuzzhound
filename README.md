@@ -84,9 +84,24 @@ source venv/bin/activate
   -o careful_scan.json
 ```
 
+#### 🎯  Fuzzing Password Field (JSON)
+  ```bash
+  python3 fuzzhound.py -u "http://target.com/login" -X POST \
+  -d '{"username":"admin","password":"FUZZ"}'
+  -w passwords.txt \
+  -H "Content-Type: application/json"
+```
+
+#### 🎯  Fuzzing Password Field (Form-Encoded POST)
+  ```bash
+  python3 fuzzhound.py -u "http://target.com/login" -X POST \
+  -d '{"username":"admin","password":"FUZZ"}'
+  -w passwords.txt \
+  -H "Content-Type: application/x-www-form-urlencoded"
+```
 
 
-
+Built with ❤️ by John Fiel Brosas as part of the cybersecurity learning journey
 
     
 
