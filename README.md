@@ -100,6 +100,15 @@ source venv/bin/activate
   -H "Content-Type: application/x-www-form-urlencoded"
 ```
 
+#### 🎯  Fuzzing Multiple Fields
+  ```bash
+  python3 fuzzhound.py -u "http://target.com/login" -X POST \
+  -d '{"username":"wordlist_1","password":"wordlist_2"}'
+  -w usernames.txt,passwords.txt \
+  -H "Content-Type: application/json" \
+  -v
+```
+
 
 Built with ❤️ by John Fiel Brosas as part of the cybersecurity learning journey
 
