@@ -62,15 +62,12 @@ def fuzz_worker(queue, args, results):
     while not queue.empty():
         item = queue.get()
         
-        # Handle different types of payloads
         if isinstance(item, tuple):
-            # Multiple wordlist combination
             word_combinations = item
             if "FUZZ" in args.target:
                 url = args.target.replace("FUZZ", word_combinations[0])
             elif args.data:
                 url = args.target
-                # Replace placeholders in data
                 data = args.data
                 for i, word in enumerate(word_combinations):
                     placeholder = f"wordlist_{i+1}"
@@ -79,7 +76,6 @@ def fuzz_worker(queue, args, results):
                 url = f"{args.target.rstrip('/')}/{word_combinations[0]}"
             payload_display = " | ".join(word_combinations)
         else:
-            # Single wordlist
             word = item
             if not word:
                 queue.task_done()
@@ -102,25 +98,20 @@ def fuzz_worker(queue, args, results):
                     headers[k.strip()] = v.strip()
 
         try:
-            # Prepare request data
             if args.data:
                 if isinstance(item, tuple):
-                    # For multiple wordlists, data was already processed above
                     pass
                 else:
-                    # For single wordlist
                     data = args.data.replace("FUZZ", word)
                 
-                # Send http or https requests
                 res = requests.request(args.method, url, headers=headers, data=data, timeout=5)
             else:
                 res = requests.request(args.method, url, headers=headers, timeout=5)
 
             status = res.status_code
-            # Updated color coding - 200 responses now in YELLOW
             color = (
-                Fore.YELLOW if status == 200 else  # Changed from GREEN to YELLOW for 200
-                Fore.GREEN if status in (201, 202, 204) else  # Other success codes in green
+                Fore.YELLOW if status == 200 else  
+                Fore.GREEN if status in (201, 202, 204) else
                 Fore.YELLOW if status in (301, 302) else
                 Fore.RED if status == 403 else
                 Fore.MAGENTA if status >= 500 else
@@ -128,16 +119,13 @@ def fuzz_worker(queue, args, results):
             )
 
             if status != 404 or args.verbose:
-                # Only display status and URL, no response content
                 line = f"[{status}] {url}"
-                
-                # If verbose mode is enabled, show the payload used
+
                 if args.verbose:
                     line = f"[{status}] {url} [Payload: {payload_display}]"
                 
                 print(color + line)
                 
-                # Only add to results if not 404 or if verbose mode shows all
                 if status != 404:
                     results.append({
                         "payload": payload_display, 
