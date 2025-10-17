@@ -87,7 +87,7 @@ source venv/bin/activate
 #### 🎯  Fuzzing Password Field (JSON)
   ```bash
   python3 fuzzhound.py -u "http://target.com/login" -X POST \
-  -d '{"username":"admin","password":"FUZZ"}'
+  -d '{"username":"admin","password":"FUZZ"}' \
   -w passwords.txt \
   -H "Content-Type: application/json"
 ```
@@ -95,7 +95,7 @@ source venv/bin/activate
 #### 🎯  Fuzzing Password Field (Form-Encoded POST)
   ```bash
   python3 fuzzhound.py -u "http://target.com/login" -X POST \
-  -d '{"username":"admin","password":"FUZZ"}'
+  -d '{"username":"admin","password":"FUZZ"}' \
   -w passwords.txt \
   -H "Content-Type: application/x-www-form-urlencoded"
 ```
@@ -103,7 +103,7 @@ source venv/bin/activate
 #### 🎯  Fuzzing Multiple Fields
   ```bash
   python3 fuzzhound.py -u "http://target.com/login" -X POST \
-  -d '{"username":"wordlist_1","password":"wordlist_2"}'
+  -d '{"username":"wordlist_1","password":"wordlist_2"}' \
   -w usernames.txt,passwords.txt \
   -H "Content-Type: application/json" \
   -v
