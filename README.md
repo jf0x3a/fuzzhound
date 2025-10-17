@@ -20,7 +20,7 @@ The tool automatically replaces the FUZZ keyword in your target URL with words f
 - 🎨 Core Capabilities
 - 🔍 **Smart Fuzzing** → Replace FUZZ keyword in URLs, query parameters, or request body
 - ⚡ **Multithreading** → Lightning-fast parallel requests with configurable thread count
-- 🛡️ **ultiple HTTP Methods** → Support for GET, POST, PUT, DELETE, PATCH, and more
+- 🛡️ **Multiple HTTP Methods** → Support for GET, POST, PUT, DELETE, PATCH, and more
 - 📊 **Intelligent Filtering** → Filter responses by status codes, size, or content
 
 🔧 Advanced Options
@@ -108,6 +108,21 @@ source venv/bin/activate
   -H "Content-Type: application/json" \
   -v
 ```
+
+#### 🎯  Find large responses (potential data leaks)
+  ```bash
+  python3 fuzzhound.py -u "http://target.com/api/FUZZ" \
+  -w wordlists.txt \
+  --filter-size ">5000"
+```
+
+#### 🎯  Find specific error patterns
+  ```bash
+  python3 fuzzhound.py -u "http://target.com/api/FUZZ" \
+  -w wordlists.txt \
+  --filter-status 500 --filter-content "sql|database"
+```
+
 
 
 Built with ❤️ by John Fiel Brosas as part of the cybersecurity learning journey
