@@ -87,7 +87,7 @@ source venv/bin/activate
 #### 🎯  Fuzzing Password Field (JSON)
   ```bash
   python3 fuzzhound.py -u "http://target.com/login" -X POST \
-  -d '{"username":"admin","password":"FUZZ"}' \
+  --data '{"username":"admin","password":"FUZZ"}' \
   -w passwords.txt \
   -H "Content-Type: application/json"
 ```
@@ -95,7 +95,7 @@ source venv/bin/activate
 #### 🎯  Fuzzing Password Field (Form-Encoded POST)
   ```bash
   python3 fuzzhound.py -u "http://target.com/login" -X POST \
-  -d '{"username":"admin","password":"FUZZ"}' \
+  --data '{"username":"admin","password":"FUZZ"}' \
   -w passwords.txt \
   -H "Content-Type: application/x-www-form-urlencoded"
 ```
@@ -103,7 +103,7 @@ source venv/bin/activate
 #### 🎯  Fuzzing Multiple Fields
   ```bash
   python3 fuzzhound.py -u "http://target.com/login" -X POST \
-  -d '{"username":"wordlist_1","password":"wordlist_2"}' \
+  --data '{"username":"wordlist_1","password":"wordlist_2"}' \
   -w usernames.txt,passwords.txt \
   -H "Content-Type: application/json" \
   -v
@@ -121,6 +121,11 @@ source venv/bin/activate
   python3 fuzzhound.py -u "http://target.com/api/FUZZ" \
   -w wordlists.txt \
   --filter-status 500 --filter-content "sql|database"
+```
+#### 🗂️  Subdomain Enumerations
+  ```bash
+  python3 fuzzhound.py -d "http:target.com" \
+  --subdomain-wordlist subdomains.txt \
 ```
 
 
