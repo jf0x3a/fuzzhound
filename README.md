@@ -124,7 +124,7 @@ source venv/bin/activate
 ```
 #### 🗂️  Subdomain Enumerations
   ```bash
-  python3 fuzzhound.py -d "http:target.com" \
+  python3 fuzzhound.py -d "http://target.com" \
   --subdomain-wordlist subdomains.txt \
 ```
 
